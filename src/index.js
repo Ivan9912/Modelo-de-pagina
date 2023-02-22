@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express')
 import {dirname, join} from 'path'
 import {fileURLToPath} from 'url'
 import indexRoutes from './routes/routes.js'
