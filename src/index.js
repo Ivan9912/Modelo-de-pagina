@@ -3,7 +3,8 @@ import {dirname, join} from 'path'
 import {fileURLToPath} from 'url'
 import indexRoutes from './routes/routes.js'
 import logger from 'morgan'
-const port = 3000 
+import serverless from 'serverless-http'
+//const port = 3000 
 
 const app = express()
 app.use(logger('dev'))
@@ -18,5 +19,8 @@ app.use(indexRoutes)
 
 app.use(express.static(join(__dirname, 'public')))
 
-app.listen(process.env.PORT || port)
-console.log('Server is listening on port', process.env.PORT || port)
+app.use('./netlify/functions/page', indexRoutes)
+
+module.exports.handler = serverless(app)
+//app.listen(process.env.PORT || port)
+//console.log('Server is listening on port', process.env.PORT || port)
